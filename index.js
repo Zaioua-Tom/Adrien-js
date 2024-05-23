@@ -1,6 +1,6 @@
 let carousel = document.querySelector('.carousel-container');
 let items = [];
-let images = Array.from(document.querySelectorAll('.carousel-item')).map(item => item.dataset.img);
+let images = JSON.parse(document.querySelector('.carousel-container').dataset.img);
 let index = 0;
 
 images.forEach((image) => {
@@ -14,10 +14,18 @@ images.forEach((image) => {
 
 let totalItems = items.length;
 
+let counter = document.getElementById('counter');
+
 function updateCarousel() {
-    items.forEach(item => item.style.display = 'none');
-    items[index].style.display = 'block';
+  items.forEach(item => item.style.display = 'none');
+  items[index].style.display = 'block';
+  updateCounter();
 }
+
+function updateCounter() {
+  counter.textContent = `${index + 1} / ${totalItems}`;
+}
+
 
 document.getElementById('prev').addEventListener('click', function() {
   index--;
