@@ -134,14 +134,14 @@
 # ] }
  
 # HTML ✍️
-# <#div class="carousel" // Parent 🎠
+# div class="carousel" // Parent 🎠
 # 💬 Suppression du "data-img" remplacé par un data-path qui pointe vers data.json
-#   <#div class="carousel-container" data-path='data.json'>
-#       <#p id="counter"></#p> 🔢
-#       <#button id="prev">Précédent</#button> ⏮️
-#       <#button id="next">Suivant</#button>  ⏭️
-#   </#div> 
-# </#div>
+#  div class="carousel-container" data-path='data.json'
+#       p id="counter"/p 🔢
+#       button id="prev" Précédent button ⏮️
+#       button id="next" Suivant button  ⏭️
+#   div 
+# div
 
 # JS 🤖
 # 💬 On pointe l'élément Html avec la classe .carousel-container;
