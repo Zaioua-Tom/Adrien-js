@@ -33,6 +33,8 @@ async function init() {
     updateCounter();
     }
 
+    setInterval(updateCarousel, 10000);
+    
     function updateCounter() {
     counter.textContent = `${index + 1} / ${totalItems}`;
     }
