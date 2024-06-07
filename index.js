@@ -1,7 +1,7 @@
 let carousel = document.querySelector('.carousel-container');
 let items = [];
 let path = document.querySelector('.carousel-container').dataset.path;
-let index = 0;
+let index = 0; 
 
 async function getImages() {
   let response = await fetch(path);
@@ -11,8 +11,6 @@ async function getImages() {
 async function init() {
 
     const images = await getImages();
-
-    console.log(images);
 
     images.forEach((image) => {
     let img = document.createElement('img');
@@ -27,31 +25,62 @@ async function init() {
 
     let counter = document.getElementById('counter');
 
-    function updateCarousel() {
-    items.forEach(item => item.style.display = 'none');
-    items[index].style.display = 'block';
-    updateCounter();
-    }
-
-    setInterval(updateCarousel, 10000);
-    
     function updateCounter() {
-    counter.textContent = `${index + 1} / ${totalItems}`;
+        counter.textContent = `${index + 1} / ${totalItems}`;
     }
 
+    function updateCarousel() {
+        items.forEach(item => item.style.display = 'none');
+        items[index].style.display = 'block';
+        updateCounter();
+    }
+
+    function prevSlide() {
+        index--;
+        if (index < 0) { index = totalItems - 1; }
+        updateCarousel();
+    }
+    
+    function nextSlide() {
+        index++;
+        if (index === totalItems) { 
+            index = 0;
+        }
+        updateCarousel();
+    }
+    
+    let carouselInterval;
+
+    let isRunning = true;
+
+    function startCarousel() {
+        if (!isRunning) {
+            return false;
+        }
+        carouselInterval = setInterval(nextSlide, 2000);
+    }
+
+    function stopCarousel() {
+        clearInterval(carouselInterval); 
+    }
+
+    document.getElementById('carousel').addEventListener('mouseover', stopCarousel);
+    
+    document.getElementById('carousel').addEventListener('mouseout', startCarousel);
 
     document.getElementById('prev').addEventListener('click', function() {
-    index--;
-    if (index < 0) { index = totalItems - 1; }
-    updateCarousel();
+        isRunning = false;
+        stopCarousel();        
+        prevSlide();
     });
 
     document.getElementById('next').addEventListener('click', function() {
-    index++;
-    if (index === totalItems) { index = 0; }
-    updateCarousel();
+        isRunning = false;
+        stopCarousel();
+        nextSlide();
     });
-
+    startCarousel
     updateCarousel(); 
 }
+
 init();
