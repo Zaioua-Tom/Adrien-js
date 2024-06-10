@@ -50,12 +50,20 @@ async function init() {
     }
     
     let carouselInterval;
-    let interval = 2000;
+    let intervalInput = document.getElementById('interval');
+    let interval = 2;
     let isRunning = true;
 
     function startCarousel() {
-        carouselInterval = setInterval(nextSlide, (interval));
+        stopCarousel();
+        carouselInterval = setInterval(nextSlide, interval * 1000);
     }
+
+    intervalInput.addEventListener('change', function() {
+        interval = Number(intervalInput.value);
+        startCarousel();
+        console.log(interval);
+    });
 
     function pauseCarousel() {
         if (!isRunning) {
@@ -68,7 +76,7 @@ async function init() {
         isRunning = false;
         clearInterval(carouselInterval); 
     }
-    
+
     document.getElementById('on').addEventListener('click', startCarousel);
 
     document.getElementById('off').addEventListener('click', stopCarousel);
