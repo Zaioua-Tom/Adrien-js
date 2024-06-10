@@ -50,6 +50,7 @@ async function init() {
     }
     
     let carouselInterval;
+    let intervalDisplay = document.getElementById('current-interval');
     let intervalInput = document.getElementById('interval');
     let interval = 2;
     let isRunning = true;
@@ -59,11 +60,17 @@ async function init() {
         carouselInterval = setInterval(nextSlide, interval * 1000);
     }
 
+    function updateIntervalDisplay() {
+        intervalDisplay.textContent = `Intervalle actuel : ${interval} secondes`;
+    }
+
     intervalInput.addEventListener('change', function() {
         interval = Number(intervalInput.value);
         startCarousel();
-        console.log(interval);
+        updateIntervalDisplay();
     });
+
+    updateIntervalDisplay();
 
     function pauseCarousel() {
         if (!isRunning) {
