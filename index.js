@@ -54,33 +54,36 @@ async function init() {
     let isRunning = true;
 
     function startCarousel() {
+        carouselInterval = setInterval(nextSlide, 10000);
+    }
+
+    function pauseCarousel() {
         if (!isRunning) {
             return false;
         }
-        carouselInterval = setInterval(nextSlide, 2000);
+        carouselInterval = setInterval(nextSlide, 10000);
     }
-
+    
     function stopCarousel() {
+        isRunning = false;
         clearInterval(carouselInterval); 
     }
 
     document.getElementById('carousel').addEventListener('mouseover', stopCarousel);
     
-    document.getElementById('carousel').addEventListener('mouseout', startCarousel);
+    document.getElementById('carousel').addEventListener('mouseout', pauseCarousel);
 
     document.getElementById('prev').addEventListener('click', function() {
-        isRunning = false;
         stopCarousel();        
         prevSlide();
     });
 
     document.getElementById('next').addEventListener('click', function() {
-        isRunning = false;
         stopCarousel();
         nextSlide();
     });
-    startCarousel
+    startCarousel();
     updateCarousel(); 
-}
+} 
 
 init();
