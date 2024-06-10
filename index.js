@@ -50,24 +50,28 @@ async function init() {
     }
     
     let carouselInterval;
-
+    let interval = 2000;
     let isRunning = true;
 
     function startCarousel() {
-        carouselInterval = setInterval(nextSlide, 10000);
+        carouselInterval = setInterval(nextSlide, (interval));
     }
 
     function pauseCarousel() {
         if (!isRunning) {
             return false;
         }
-        carouselInterval = setInterval(nextSlide, 10000);
+        carouselInterval = setInterval(nextSlide, (interval));
     }
     
     function stopCarousel() {
         isRunning = false;
         clearInterval(carouselInterval); 
     }
+    
+    document.getElementById('on').addEventListener('click', startCarousel);
+
+    document.getElementById('off').addEventListener('click', stopCarousel);
 
     document.getElementById('carousel').addEventListener('mouseover', stopCarousel);
     
